@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>World History Map 2001–2026 · Military and political events by year</title>
+  <meta name="description" content="An interactive world map for teaching recent history: move the year slider to see the major military and political events of each year from 2001 to 2026.">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>World History Map</h1>
+      <p class="subtitle">Major military and political events, 2001 to today</p>
+    </div>
+    <div class="timeline" role="group" aria-label="Year controls">
+      <div class="year-display">
+        <button class="btn round" id="prevYear" aria-label="Previous year" title="Previous year (←)">&#9664;</button>
+        <div class="year-label"><span id="yearLabel">2001</span><small id="yearNote"></small></div>
+        <button class="btn round" id="nextYear" aria-label="Next year" title="Next year (→)">&#9654;</button>
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="yearSlider" min="2001" max="2026" step="1" value="2001" aria-label="Year">
+        <div class="ticks" id="ticks" aria-hidden="true"></div>
+      </div>
+      <div class="play-controls">
+        <button class="btn play" id="playBtn" aria-label="Play through the years" title="Play / pause (space)"><span id="playIcon">&#9654;</span> <span id="playText">Play</span></button>
+        <label class="speed">Speed
+          <select id="speedSelect" aria-label="Autoplay speed">
+            <option value="8000">Slow (8s)</option>
+            <option value="4000" selected>Normal (4s)</option>
+            <option value="2000">Fast (2s)</option>
+            <option value="1000">Very fast (1s)</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="map-wrap" aria-label="World map">
+      <div id="map"></div>
+      <div class="map-tools">
+        <button class="btn small" id="resetView" title="Zoom out to the whole world">World view</button>
+        <button class="btn small" id="baseToggle" title="Switch between the labelled online map and the simple offline map">Simple map</button>
+      </div>
+      <article class="card hidden" id="eventCard" aria-live="polite" aria-label="Event details">
+        <button class="card-close" id="cardClose" aria-label="Close">&times;</button>
+        <div class="card-cat" id="cardCat"></div>
+        <h2 id="cardTitle"></h2>
+        <p class="card-meta"><span id="cardDate"></span><span class="dot">•</span><span id="cardPlace"></span></p>
+        <p class="card-ongoing hidden" id="cardOngoing"></p>
+        <p class="card-summary" id="cardSummary"></p>
+        <a class="card-source" id="cardSource" href="#" target="_blank" rel="noopener">Read more</a>
+      </article>
+    </section>
+
+    <aside class="panel" aria-label="Events for the selected year">
+      <div class="panel-head">
+        <h2><span id="panelYear">2001</span> <span class="count" id="panelCount"></span></h2>
+        <label class="toggle" title="Keep showing wars that started in earlier years and were still going on">
+          <input type="checkbox" id="ongoingToggle" checked> Show ongoing conflicts
+        </label>
+      </div>
+      <div class="legend" id="legend" role="group" aria-label="Filter by category"></div>
+      <div class="legend-actions">
+        <button class="linkbtn" id="allCats">Show all</button>
+        <button class="linkbtn" id="milPolCats" title="War, terrorism, coups, elections, treaties and independence only">Military &amp; political only</button>
+      </div>
+      <ol class="event-list" id="eventList"></ol>
+      <div class="ongoing-block" id="ongoingBlock"></div>
+      <p class="panel-foot">Summaries are short, neutral overviews. Follow each source link for detail. Data: <code>data/events.js</code>.</p>
+    </aside>
+  </main>
+
+  <noscript><p class="noscript">This map needs JavaScript switched on.</p></noscript>
+
+  <script src="vendor/leaflet.js"></script>
+  <script src="data/world.js"></script>
+  <script src="data/events.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
